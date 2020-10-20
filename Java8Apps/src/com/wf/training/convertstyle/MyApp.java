@@ -1,5 +1,7 @@
 package com.wf.training.convertstyle;
 
+
+
 class GreetingsApi{
 	/*public void conveyGreetings(String message) {
 		System.out.println(message);
@@ -33,6 +35,7 @@ class Sample{
 
 public class MyApp {
 
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		GreetingsApi greet = new GreetingsApi();
@@ -67,7 +70,16 @@ public class MyApp {
 								System.out.println("Send over Twitter : " + message);
 						     }*/
 		// pure functions has be defined as Lambda expression
-		Greetings twitter = message -> System.out.println("Send over Twitter : " + message);
+		int a = 10;
+		Greetings twitter = message -> 	{
+			System.out.println("Send over Twitter : " + message);
+			System.out.println(a); // can access local variable
+			// can access instance variable as well
+			// a=20;
+			// int a = 20;
+			
+		};
+			
 		
 		greet.conveyGreetings("Hello", twitter);
 		
