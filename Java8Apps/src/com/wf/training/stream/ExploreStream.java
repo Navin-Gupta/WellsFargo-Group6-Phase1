@@ -1,7 +1,9 @@
 package com.wf.training.stream;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import com.wf.training.repository.Student;
 import com.wf.training.repository.StudentRepository;
@@ -27,12 +29,22 @@ public class ExploreStream {
 	public static void main(String args[]) {
 		// display name and activities of student with condition (stream)
 		// fetch the stream
-		StudentRepository.getStudents()
-						 .stream()
-						 //.filter(gradePredicate)
-						 //.filter(gpaPredicate)
-						 .filter(gradePredicate.and(gpaPredicate))
+		/*StudentRepository.getStudents()
+						 .stream().peek(student->System.out.println("Initiated : " + student))
+						 .filter(gradePredicate).peek(student->System.out.println("Ist Filter : " + student))
+						 .filter(gpaPredicate).peek(student->System.out.println("IInd Filter : " + student))
+						 //.filter(gradePredicate.and(gpaPredicate))
 						 .forEach(nameDisplay.andThen(activityDisplay));
+		*/				 
+		
+		// List<Student> filteredStudents = 
+		long count = StudentRepository.getStudents()
+						 .stream().peek(student->System.out.println("Initiated : " + student))
+						 .filter(gradePredicate).peek(student->System.out.println("Ist Filter : " + student))
+						 .filter(gpaPredicate).peek(student->System.out.println("IInd Filter : " + student))
+						 .count();
+						 // .collect(Collectors.toList());
+		// System.out.println(filteredStudents);
 		
 	}
 }
