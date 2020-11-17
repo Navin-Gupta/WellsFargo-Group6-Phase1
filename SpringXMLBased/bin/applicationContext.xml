@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<!-- Load the property file -->
+	<context:property-placeholder location="classpath:repository.properties"/>
+
+	<!-- Bean config -->
+	
+	<bean id="personal" class="com.wf.training.spring.factory.service.PersonalFortune"></bean>
+	<bean id="professional" class="com.wf.training.spring.factory.service.ProfessionalFortune"></bean>
+	
+	<!-- What bean to create : How to expose it -->
+	<bean id="smsservice" class="com.wf.training.spring.factory.service.SmsService"></bean>
+	<!-- 
+	<bean id="emailservice" class="com.wf.training.spring.factory.service.EmailService"></bean>
+	 -->
+	 <!-- Injecting Dependency -->
+
+		<!-- Constructor Based 
+	 <bean id="emailservice" class="com.wf.training.spring.factory.service.EmailService">
+	 	<constructor-arg ref="professional"/>
+	 </bean>
+	-->
+	
+	<!-- Setter Based --> 
+	 <bean id="emailservice" 
+	 	   class="com.wf.training.spring.factory.service.EmailService"
+	 	   scope="prototype"
+	 	   init-method="myInit"
+	 	   destroy-method="myCleanUp">
+	 	<property name="fortuneService" ref="personal"/>
+	 	<!-- injecting literal values 
+	 	<property name="sender" value="admin@mail.com"/>
+	 	-->
+	 	<!-- literal values from properties file SpEL -->
+	 	<property name="sender" value="${msg.email.sender}"/>
+	 </bean>
+	
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
