@@ -2,7 +2,7 @@ package com.wf.training.spring.factory.service;
 
 import org.springframework.stereotype.Component;
 
-@Component
+// @Component
 public class ProfessionalFortune implements FortuneService{
 
 	@Override

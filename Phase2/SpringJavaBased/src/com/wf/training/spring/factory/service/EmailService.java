@@ -25,7 +25,8 @@ public class EmailService implements MessagingService{
 	// Constructor based DI
 	// Constructors are by default auto-wired
 	@Autowired
-	public EmailService(@Qualifier("personalFortune") FortuneService fortuneService) {
+	// public EmailService(@Qualifier("personalFortune") FortuneService fortuneService) {
+	public EmailService(FortuneService fortuneService) {
 		this.fortuneService = fortuneService;
 	}
 	
