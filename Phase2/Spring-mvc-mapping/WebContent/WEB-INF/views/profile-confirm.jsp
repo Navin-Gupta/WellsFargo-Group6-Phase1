@@ -7,8 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Welcome to employee dashboard!</h1>
+<h1>Profile Saved Successfully</h1>
 <hr/>
-<a href="profile-entry">Profile</a>
+<h2>Saved Details...</h2>
+<%-- SpEL --%>
+<%-- getter method --%>
+<h3>NAME : ${employee.name}</h3>
+<h3>EMAIL : ${employee.email}</h3>
+<h3>CONTACT: ${employee.contact}</h3>
 </body>
 </html>

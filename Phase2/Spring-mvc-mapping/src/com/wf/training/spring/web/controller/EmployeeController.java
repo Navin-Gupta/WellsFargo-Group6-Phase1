@@ -1,7 +1,17 @@
 package com.wf.training.spring.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.wf.training.spring.web.model.Employee;
 
 @Controller
 @RequestMapping("/employee")
@@ -25,11 +35,85 @@ public class EmployeeController {
 	}
 	
 	// fallback url mapping
-	@RequestMapping("*")
+	/*@RequestMapping("*")
 	public String fallback() {
 		// return "employee-error";
 		return "redirect:/employee/home";// ~sendRedirect()
+	}*/
+	
+	// respond back profile-entry form
+	@RequestMapping("/profile-entry") // /employee/profile-entry
+	public String profileEntry() {
+		return "employee-profile-entry";
+	}
+	
+	// receive the form info
+	// servlet-way 
+	/*@RequestMapping("/profile-save")
+	public String saveProfile(HttpServletRequest request) {
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String contact = request.getParameter("contact");
+		System.out.println(name + " | " + email + " | " + contact);
+		return "profile-confirm";
+	}*/
+	
+	// spring-way
+	// can accept any verb request
+	// @RequestMapping("/profile-save")
+	// accept a particular type of http verb
+	// @RequestMapping(value = { "/profile-save" }, method = RequestMethod.POST)
+	// verb specific annotation
+	/*@PostMapping("/profile-save")
+	public String saveProfile(@RequestParam("name") String empName, 
+							  @RequestParam String email, 
+							  @RequestParam(value = "contact", required = false, defaultValue = "1111111") String contact) {
+		System.out.println("POST DATA : " + empName + " | " + email + " | " + contact);
+		return "profile-confirm";
+	}*/
+	
+	// spring abstract way : form values can be mapped directly with Model class
+	// need to share employee info with JSP page : model object
+	/*@PostMapping("/profile-save")
+	public String saveProfile(Employee employee, Model model) {
+		// System.out.println("POST DATA : " + employee.getName() + " | " + employee.getEmail() + " | " + employee.getContact());
+		// put data in model container
+		model.addAttribute("employee", employee);
+		return "profile-confirm";
+	}*/
+	
+	// ModelAndView : clubbed object 
+	@PostMapping("/profile-save")
+	public ModelAndView saveProfile(Employee employee) {
+		ModelAndView mv = new ModelAndView("profile-confirm");
+		// mv.setViewName("");
+		// put data in model container
+		mv.addObject("employee",employee);
+		return mv;
 	}
 	
 	
+	
+	
+	// @RequestMapping(value = { "/profile-save" }, method = RequestMethod.GET)
+	@GetMapping("/profile-save")
+	public String saveProfilePro(String name, String email, String contact) {
+		System.out.println("GET DATA : " + name + " | " + email + " | " + contact);
+		return "profile-confirm";
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
