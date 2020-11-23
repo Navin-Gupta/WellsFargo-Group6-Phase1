@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Welcome to employee dashboard!</h1>
-<hr/>
-<a href="${pageContext.request.contextPath}/employee/profile-entry">Profile</a>
+<h1>All Employee Resources!!!</h1>
 </body>
 </html>
