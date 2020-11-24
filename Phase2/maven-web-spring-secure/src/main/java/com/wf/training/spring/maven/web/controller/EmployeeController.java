@@ -1,5 +1,7 @@
 package com.wf.training.spring.maven.web.controller;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -24,9 +26,9 @@ public class EmployeeController {
 	// @RequestMapping("/home")  // /employee/home
 	// multiple url can be mapped
 	@RequestMapping(value= {"/home","/dashboard","/index"})  // /employee/home
-	public String home() {
+	public String home(Principal principal) { // info of currently logged in user
 		// business logic
-		
+	
 		return "employee-home";
 	}
 	

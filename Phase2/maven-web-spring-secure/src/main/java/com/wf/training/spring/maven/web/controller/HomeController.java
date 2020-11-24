@@ -10,15 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
-	// processing logic shall be contained in method
-	// Action/Handler method
-	/*
-	 * 1. Each method must be mapped to a url
-	 * 2. Return type : string (view name)
-	 * 3. Name : any
-	 * 4. Access Modifier : public
-	 * 5. Parameter : depends on req
-	 */
+	
 	
 	// to respond to root URL (home/welcome file)
 	@RequestMapping("/")
@@ -29,12 +21,21 @@ public class HomeController {
 		return "index";
 	}
 	
-	@RequestMapping("/profile")
-	public String profile() {
+	@RequestMapping("/access-denied")
+	public String accessDenied() {
 		// add business logic
 		
 		// respond back with a view page name
-		return "profile-page";
+		return "error-page";
 	}
+	
+	@RequestMapping("/custom-login")
+	public String customLogin() {
+		// add business logic
+		
+		// respond back with a view page name
+		return "custom-login";
+	}
+	
 	
 }
