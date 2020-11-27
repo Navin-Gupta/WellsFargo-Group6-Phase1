@@ -1,16 +1,33 @@
 package com.wf.training.bootapprestfulcrud.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity // create a table with class name
+// @Table(name = "employeemaster")
 public class Employee {
 
+	@Id  // primary key
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // AI
 	private Long id;
+	
+	// @Column(name = "empname")
 	private String name;
+	
 	private String email;
+	
 	private String contact;
+	
 	private Double basicSalary;
 	private Double hra;
 	private Double ta;
 	private Double da;
 	private Double pfDeduction;
+	
 	public Long getId() {
 		return id;
 	}
