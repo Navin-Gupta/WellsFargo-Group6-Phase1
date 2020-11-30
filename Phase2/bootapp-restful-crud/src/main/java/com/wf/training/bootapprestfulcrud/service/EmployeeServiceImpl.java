@@ -59,6 +59,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public List<EmployeeOutputDto> fetchAllEmployees() {
 		
+		/*this.repository.findByBasicSalaryGreaterThan(2000.0);
+		this.repository.findByEmail("");
+		this.repository.findByComplexRequirement(2000.0, "");
+		this.repository.veryComplexBusinessLogicRequirement("");
+		*/
+		
 		// use repository to fetch data from DB
 		List<Employee> employees = this.repository.findAll();
 		// convert entity into dto

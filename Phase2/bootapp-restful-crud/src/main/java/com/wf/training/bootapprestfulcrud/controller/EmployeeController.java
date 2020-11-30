@@ -5,8 +5,11 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wf.training.bootapprestfulcrud.dto.EmployeeInputDto;
 import com.wf.training.bootapprestfulcrud.dto.EmployeeOutputDto;
+import com.wf.training.bootapprestfulcrud.dto.exception.ExceptionResponse;
 import com.wf.training.bootapprestfulcrud.exception.EmployeeException;
 import com.wf.training.bootapprestfulcrud.service.EmployeeService;
 
@@ -30,17 +34,25 @@ public class EmployeeController {
 	
 	// fetch all records
 	@GetMapping("/employees")
-	public List<EmployeeOutputDto> fetchAll() {
+	public ResponseEntity<List<EmployeeOutputDto>> fetchAll() {
 		// call the service layer method
 		List<EmployeeOutputDto> employees = this.service.fetchAllEmployees();
-		return employees;
+		
+		ResponseEntity<List<EmployeeOutputDto>> response =
+				new ResponseEntity<List<EmployeeOutputDto>>(employees, HttpStatus.OK);
+		
+		return response;
 	}
 	
 	// fetch a record based on id
 	@GetMapping("/employees/{id}")
-	public EmployeeOutputDto fetchSingle(@PathVariable Long id) {
+	public ResponseEntity<EmployeeOutputDto> fetchSingle(@PathVariable Long id) {
 		EmployeeOutputDto employeeOutputDto =  this.service.fetchSingleEmployee(id);
-		return employeeOutputDto;
+		
+		ResponseEntity<EmployeeOutputDto> response =
+				new ResponseEntity<EmployeeOutputDto>(employeeOutputDto, HttpStatus.OK);
+		
+		return response;
 	}
 	
 	// add a record
@@ -68,6 +80,28 @@ public class EmployeeController {
 		EmployeeOutputDto employeeOutputDto = this.service.deleteEmployee(id);
 		return employeeOutputDto;
 	}
+	
+	
+	// exception handler method
+	/*@ExceptionHandler(NullPointerException.class)
+	public ResponseEntity<ExceptionResponse> handler(NullPointerException ex) {
+		// should return back an ExceptionResponse DTO Object
+		ExceptionResponse exResponse = 
+				new ExceptionResponse("Record not found", 
+									  System.currentTimeMillis(), 
+									  HttpStatus.NOT_FOUND.value());
+		ResponseEntity<ExceptionResponse> response =
+				new ResponseEntity<ExceptionResponse>(exResponse, HttpStatus.NOT_FOUND);
+		
+		return response;
+		
+	}
+	
+	// exception handler method
+	@ExceptionHandler(Exception.class)
+	public void handler(Exception ex) {
+		
+	}*/
 }
 
 
